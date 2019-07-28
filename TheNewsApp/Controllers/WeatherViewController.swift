@@ -77,21 +77,10 @@ class WeatherViewController: UIViewController {
                     
                 }
                 
-//                if let sher = qaq["temp"] {
-//                    self.temperatureLabel.text = String(sher)
-//                } else {
-//                    print("error")
-//                }
-
             } catch {
                 print("JSON error: \(error.localizedDescription)")
             }
         }.resume()
-        
-        //temperatureLabel.text = String(weather.temperature)
-        
-        
-        
     }
     
 
