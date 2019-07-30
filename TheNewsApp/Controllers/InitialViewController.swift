@@ -8,24 +8,42 @@
 
 import UIKit
 
+
+
 class InitialViewController: UIViewController {
 
+    
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         // Do any additional setup after loading the view.
     }
     
+    
+
+    
     @IBAction func weatherButtonTapped(_ sender: UIButton) {
+        
         performSegue(withIdentifier: "goToWeather", sender: self)
         
     }
     
+   
+    
     @IBAction func newsButtonTapped(_ sender: UIButton) {
+        
+        
+
+         performSegue(withIdentifier: "goToNews", sender: self)
+    
+
     }
-    
-    
-    
+
+   
 
   
 

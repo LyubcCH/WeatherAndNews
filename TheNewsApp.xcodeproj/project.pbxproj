@@ -14,9 +14,11 @@
 		A53BA28522E8B465003B5D83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53BA28322E8B465003B5D83 /* LaunchScreen.storyboard */; };
 		A53BA28D22E8B49E003B5D83 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA28C22E8B49E003B5D83 /* NewsTableViewController.swift */; };
 		A53BA28F22E8B79E003B5D83 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA28E22E8B79E003B5D83 /* News.swift */; };
-		A53BA29122E8C813003B5D83 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA29022E8C813003B5D83 /* NewsTableViewCell.swift */; };
 		A53BA29322E8D7A2003B5D83 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA29222E8D7A2003B5D83 /* InitialViewController.swift */; };
 		A53BA29622E8F4DB003B5D83 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA29522E8F4DB003B5D83 /* WeatherViewController.swift */; };
+		A53BA2FB22EEF518003B5D83 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA2FA22EEF518003B5D83 /* NewsTableViewCell.swift */; };
+		A53BA2FD22F0DA7F003B5D83 /* OpenedNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA2FC22F0DA7E003B5D83 /* OpenedNewsViewController.swift */; };
+		A53BA30022F0DD1B003B5D83 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53BA2FF22F0DD1B003B5D83 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +31,11 @@
 		A53BA28622E8B465003B5D83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A53BA28C22E8B49E003B5D83 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		A53BA28E22E8B79E003B5D83 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
-		A53BA29022E8C813003B5D83 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		A53BA29222E8D7A2003B5D83 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		A53BA29522E8F4DB003B5D83 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		A53BA2FA22EEF518003B5D83 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		A53BA2FC22F0DA7E003B5D83 /* OpenedNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedNewsViewController.swift; sourceTree = "<group>"; };
+		A53BA2FF22F0DD1B003B5D83 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A53BA30022F0DD1B003B5D83 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +55,7 @@
 			children = (
 				A53BA27622E8B462003B5D83 /* TheNewsApp */,
 				A53BA27522E8B462003B5D83 /* Products */,
+				A53BA2FE22F0DD18003B5D83 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,7 +72,7 @@
 			children = (
 				A53BA27722E8B462003B5D83 /* AppDelegate.swift */,
 				A53BA28E22E8B79E003B5D83 /* News.swift */,
-				A53BA29022E8C813003B5D83 /* NewsTableViewCell.swift */,
+				A53BA2FA22EEF518003B5D83 /* NewsTableViewCell.swift */,
 				A53BA27B22E8B462003B5D83 /* Main.storyboard */,
 				A53BA29422E8F362003B5D83 /* Controllers */,
 				A53BA28122E8B465003B5D83 /* Assets.xcassets */,
@@ -82,9 +88,18 @@
 			children = (
 				A53BA29222E8D7A2003B5D83 /* InitialViewController.swift */,
 				A53BA28C22E8B49E003B5D83 /* NewsTableViewController.swift */,
+				A53BA2FC22F0DA7E003B5D83 /* OpenedNewsViewController.swift */,
 				A53BA29522E8F4DB003B5D83 /* WeatherViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A53BA2FE22F0DD18003B5D83 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A53BA2FF22F0DD1B003B5D83 /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,9 +173,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A53BA2FD22F0DA7F003B5D83 /* OpenedNewsViewController.swift in Sources */,
 				A53BA28022E8B462003B5D83 /* TheNewsApp.xcdatamodeld in Sources */,
+				A53BA2FB22EEF518003B5D83 /* NewsTableViewCell.swift in Sources */,
 				A53BA27822E8B462003B5D83 /* AppDelegate.swift in Sources */,
-				A53BA29122E8C813003B5D83 /* NewsTableViewCell.swift in Sources */,
 				A53BA29322E8D7A2003B5D83 /* InitialViewController.swift in Sources */,
 				A53BA29622E8F4DB003B5D83 /* WeatherViewController.swift in Sources */,
 				A53BA28F22E8B79E003B5D83 /* News.swift in Sources */,

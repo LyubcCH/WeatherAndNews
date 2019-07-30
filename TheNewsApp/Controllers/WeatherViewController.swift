@@ -57,19 +57,17 @@ class WeatherViewController: UIViewController {
 
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: [])
-
+                
                 guard let jsonArray = json as? [String: Any] else {
                     return
                 }
-                print(jsonArray)
-               
-                  guard let main_info = jsonArray["main"]! as? [String: Double] else { return }
-                  print(main_info)
+                
+                guard let main_info = jsonArray["main"]! as? [String: Double] else { return }
                 guard let weather_info = jsonArray["weather"] as? [[String: Any]] else { return }
                 
-                  self.weather.temperature = main_info["temp"]!
+                self.weather.temperature = main_info["temp"]!
                 self.weather.condition = weather_info[0]["id"]! as! Int
-                 print(self.weather.temperature)
+                print(self.weather.temperature)
                 print(self.weather.condition)
                 DispatchQueue.main.async {
                     self.temperatureLabel.text = String(self.weather.temperature)
@@ -80,7 +78,7 @@ class WeatherViewController: UIViewController {
             } catch {
                 print("JSON error: \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
     
 
