@@ -19,6 +19,7 @@
 		A53BA2FB22EEF518003B5D83 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA2FA22EEF518003B5D83 /* NewsTableViewCell.swift */; };
 		A53BA2FD22F0DA7F003B5D83 /* OpenedNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53BA2FC22F0DA7E003B5D83 /* OpenedNewsViewController.swift */; };
 		A53BA30022F0DD1B003B5D83 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53BA2FF22F0DD1B003B5D83 /* WebKit.framework */; };
+		A5F12E9A22F4B0EF00C7370E /* FavouritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F12E9922F4B0EF00C7370E /* FavouritesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		A53BA2FA22EEF518003B5D83 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		A53BA2FC22F0DA7E003B5D83 /* OpenedNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedNewsViewController.swift; sourceTree = "<group>"; };
 		A53BA2FF22F0DD1B003B5D83 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		A5F12E9922F4B0EF00C7370E /* FavouritesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				A53BA29222E8D7A2003B5D83 /* InitialViewController.swift */,
 				A53BA28C22E8B49E003B5D83 /* NewsTableViewController.swift */,
 				A53BA2FC22F0DA7E003B5D83 /* OpenedNewsViewController.swift */,
+				A5F12E9922F4B0EF00C7370E /* FavouritesTableViewController.swift */,
 				A53BA29522E8F4DB003B5D83 /* WeatherViewController.swift */,
 			);
 			path = Controllers;
@@ -181,6 +184,7 @@
 				A53BA29622E8F4DB003B5D83 /* WeatherViewController.swift in Sources */,
 				A53BA28F22E8B79E003B5D83 /* News.swift in Sources */,
 				A53BA28D22E8B49E003B5D83 /* NewsTableViewController.swift in Sources */,
+				A5F12E9A22F4B0EF00C7370E /* FavouritesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

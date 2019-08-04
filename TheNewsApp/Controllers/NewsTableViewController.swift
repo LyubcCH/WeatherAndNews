@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
+let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
 class NewsTableViewController: UITableViewController {
     
-    var news_info2: News = News(results: [Results(url: "", title: "", published_date: "", media: [MediaObject(mediaMetadata: [MediaMetadataDetails(url: "")])])])
+    var news_info: News = News(results: [Results(url: "", title: "", published_date: "", media: [MediaObject(mediaMetadata: [MediaMetadataDetails(url: "")])])])
     
 
   
@@ -20,12 +22,6 @@ class NewsTableViewController: UITableViewController {
         
         getNews()
         
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
     }
     
@@ -40,7 +36,7 @@ class NewsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return news_info2.results.count
+        return news_info.results.count
         
     }
 
@@ -49,10 +45,9 @@ class NewsTableViewController: UITableViewController {
        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsTableViewCell
-        
-        cell.newsTitleLabel.text = news_info2.results[indexPath.row].title
-        cell.datePublishedLabel.text = news_info2.results[indexPath.row].published_date
-        let pic_url = URL(string: news_info2.results[indexPath.row].media[0].mediaMetadata[0].url)
+        cell.newsTitleLabel.text = news_info.results[indexPath.row].title
+        cell.datePublishedLabel.text = news_info.results[indexPath.row].published_date
+        let pic_url = URL(string: news_info.results[indexPath.row].media[0].mediaMetadata[0].url)
         if pic_url != nil {
         do {
             let data = try Data(contentsOf: pic_url!)
@@ -61,14 +56,14 @@ class NewsTableViewController: UITableViewController {
             print(error)
         }
         }
-        
+    
         
         return cell
         
     }
    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        page_url = news_info2.results[indexPath.row].url
+        page_url = news_info.results[indexPath.row].url
         performSegue(withIdentifier: "goToThePage", sender: self)
 
     }
@@ -78,7 +73,7 @@ class NewsTableViewController: UITableViewController {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else { return }
             do {
-                self.news_info2 = try JSONDecoder().decode(News.self, from: data)
+                self.news_info = try JSONDecoder().decode(News.self, from: data)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -87,52 +82,50 @@ class NewsTableViewController: UITableViewController {
         
     }
 
- 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        
+        if let indexPath = getIndexPath(of: sender) {
+            guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+            let article = Article(context: managedContext)
+            article.name = news_info.results[indexPath.row].title
+            article.url = news_info.results[indexPath.row].url
+            article.date = news_info.results[indexPath.row].published_date
+            let pic_url = URL(string: news_info.results[indexPath.row].media[0].mediaMetadata[0].url)
+            if pic_url != nil {
+                do {
+                    let data = try Data(contentsOf: pic_url!)
+                    article.picture = data
+                } catch let error {
+                    print(error)
+                }
+            }
+            do {
+                try managedContext.save()
+                print("it worked")
+            } catch {
+                print("failed to save data: \(error.localizedDescription)")
+            }
+        } else {
+            print("meh")
+        }
+        
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    private func getIndexPath(of element:Any) -> IndexPath?
+    {
+        if let view =  element as? UIView
+        {
+            // Converting to table view coordinate system
+            let pos = view.convert(CGPoint.zero, to: self.tableView)
+            // Getting the index path according to the converted position
+            return tableView.indexPathForRow(at: pos)
+        }
+        return nil
+    }
+ 
+
+
+   
 
 }
 
