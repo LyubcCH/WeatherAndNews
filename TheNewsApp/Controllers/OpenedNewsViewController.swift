@@ -19,9 +19,7 @@ class OpenedNewsViewController: UIViewController {
         super.viewDidLoad()
         web.load(URLRequest(url:URL(string: page_url)!))
     }
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
+  
 
 
 

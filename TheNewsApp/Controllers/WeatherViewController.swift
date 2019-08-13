@@ -22,14 +22,11 @@ class WeatherViewController: UIViewController {
     var weather: Weather = Weather(temperature: 0, condition: 0)
     
     @IBOutlet var cityTextField: UITextField!
-    
     @IBOutlet var temperatureLabel: UILabel!
-    
     @IBOutlet var weatherImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
     
     @IBAction func goToMainPageButtonTapped(_ sender: Any) {

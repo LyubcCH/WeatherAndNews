@@ -11,21 +11,36 @@ import CoreData
 
  var favourites: [Article] = []
 
-class FavouritesTableViewController: UITableViewController {
 
-   
+class FavouritesTableViewController: UITableViewController, UISearchResultsUpdating {
     
+    var filteredTableData = [Article]()
+    var resultSearchController = UISearchController()
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchFata()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        fetchFata()
+        self.definesPresentationContext = true
+        self.extendedLayoutIncludesOpaqueBars = true
+
+        resultSearchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.dimsBackgroundDuringPresentation = false
+            controller.searchBar.sizeToFit()
+            controller.hidesNavigationBarDuringPresentation = false
+            tableView.tableHeaderView = controller.searchBar
+            
+            return controller
+        })()
+        
+        // Reload the table
+        tableView.reloadData()
+
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source and Search Results Updating
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -34,8 +49,36 @@ class FavouritesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return favourites.count
+        
+        if  (resultSearchController.isActive) {
+            return filteredTableData.count
+        } else {
+            return favourites.count
+        }
+        
     }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filteredTableData.removeAll(keepingCapacity: false)
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        
+        let array = favourites.filter {
+            
+            return $0.name?.lowercased().range(of: searchText.lowercased()) != nil ||
+                   $0.date?.range(of: searchText) != nil
+//                $0.ManagerDesignation.range(of: searchText) != nil
+        }
+        filteredTableData = array
+        
+//        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
+//        let array = favourites.filter(searchPredicate)
+//        filteredTableData = array as! [Article]
+//
+         self.tableView.reloadData()
+    }
+  
     
     func fetchFata() {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
@@ -51,12 +94,23 @@ class FavouritesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favouritesCell", for: indexPath) as! NewsTableViewCell
-        cell.newsTitleLabel.text = favourites[indexPath.row].name
-        cell.datePublishedLabel.text = favourites[indexPath.row].date
-        cell.newsImageView.image = UIImage(data: favourites[indexPath.row].picture!)
+        
        
-
-        return cell
+        
+        
+        if (resultSearchController.isActive) {
+            cell.newsTitleLabel.text = filteredTableData[indexPath.row].name
+            cell.datePublishedLabel.text = filteredTableData[indexPath.row].date
+            cell.newsImageView.image = UIImage(data: filteredTableData[indexPath.row].picture!)
+            return cell
+          
+        }
+        else {
+            cell.newsTitleLabel.text = favourites[indexPath.row].name
+            cell.datePublishedLabel.text = favourites[indexPath.row].date
+            cell.newsImageView.image = UIImage(data: favourites[indexPath.row].picture!)
+            return cell
+        }
     }
  
 
@@ -92,3 +146,4 @@ class FavouritesTableViewController: UITableViewController {
     }
   
 }
+
