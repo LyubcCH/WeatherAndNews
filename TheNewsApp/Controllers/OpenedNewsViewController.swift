@@ -13,7 +13,6 @@ var page_url = ""
 
 class OpenedNewsViewController: UIViewController {
 
-    
     @IBOutlet var web: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()

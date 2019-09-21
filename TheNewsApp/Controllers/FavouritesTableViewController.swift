@@ -9,21 +9,21 @@
 import UIKit
 import CoreData
 
- var favourites: [Article] = []
+var favourites: [Article] = []
 
 
 class FavouritesTableViewController: UITableViewController, UISearchResultsUpdating {
     
     var filteredTableData = [Article]()
     var resultSearchController = UISearchController()
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         fetchFata()
         self.definesPresentationContext = true
         self.extendedLayoutIncludesOpaqueBars = true
-
+        
         resultSearchController = ({
             let controller = UISearchController(searchResultsController: nil)
             controller.searchResultsUpdater = self
@@ -37,16 +37,16 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
         
         // Reload the table
         tableView.reloadData()
-
+        
     }
-
+    
     // MARK: - Table view data source and Search Results Updating
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
@@ -67,18 +67,12 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
         let array = favourites.filter {
             
             return $0.name?.lowercased().range(of: searchText.lowercased()) != nil ||
-                   $0.date?.range(of: searchText) != nil
-//                $0.ManagerDesignation.range(of: searchText) != nil
+                $0.date?.range(of: searchText) != nil
         }
         filteredTableData = array
-        
-//        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
-//        let array = favourites.filter(searchPredicate)
-//        filteredTableData = array as! [Article]
-//
-         self.tableView.reloadData()
+        self.tableView.reloadData()
     }
-  
+    
     
     func fetchFata() {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
@@ -90,20 +84,16 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
         }
     }
     
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favouritesCell", for: indexPath) as! NewsTableViewCell
-        
-       
-        
-        
         if (resultSearchController.isActive) {
             cell.newsTitleLabel.text = filteredTableData[indexPath.row].name
             cell.datePublishedLabel.text = filteredTableData[indexPath.row].date
             cell.newsImageView.image = UIImage(data: filteredTableData[indexPath.row].picture!)
             return cell
-          
+            
         }
         else {
             cell.newsTitleLabel.text = favourites[indexPath.row].name
@@ -112,16 +102,16 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
             return cell
         }
     }
- 
-
-  
+    
+    
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         page_url = favourites[indexPath.row].url!
         performSegue(withIdentifier: "goToThePage", sender: self)
-
+        
     }
     
- 
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "delete") { (action, indexPath) in
             guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
@@ -140,10 +130,8 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-
-     
         return [deleteAction]
     }
-  
+    
 }
 

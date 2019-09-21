@@ -15,7 +15,7 @@ struct Weather {
 
 
 class WeatherViewController: UIViewController {
-
+    
     let weatherURL = "https://openweathermap.org/data/2.5/weather?q="
     let appID = "&appid=b6907d289e10d714a6e88b30761fae22"
     
@@ -38,23 +38,17 @@ class WeatherViewController: UIViewController {
         
         
         let url = URL(string: weatherURL + cityTextField.text! + appID)!
-
         URLSession.shared.dataTask(with: url) { data, response, error in
-
             if error != nil || data == nil {
                 print("Client error!")
                 return
             }
-
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server error!")
                 return
             }
-
-
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: [])
-                
                 guard let jsonArray = json as? [String: Any] else {
                     return
                 }
@@ -78,7 +72,7 @@ class WeatherViewController: UIViewController {
             }.resume()
     }
     
-
+    
     func updateWeatherIcon(condition: Int) -> String {
         
         switch (condition) {
@@ -121,7 +115,4 @@ class WeatherViewController: UIViewController {
         }
         
     }
-
-  
-
 }
