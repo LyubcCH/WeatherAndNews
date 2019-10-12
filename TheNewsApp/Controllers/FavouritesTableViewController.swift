@@ -11,7 +11,6 @@ import CoreData
 
 var favourites: [Article] = []
 
-
 class FavouritesTableViewController: UITableViewController, UISearchResultsUpdating {
     
     var filteredTableData = [Article]()
@@ -19,7 +18,6 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fetchFata()
         self.definesPresentationContext = true
         self.extendedLayoutIncludesOpaqueBars = true
@@ -27,7 +25,7 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
         resultSearchController = ({
             let controller = UISearchController(searchResultsController: nil)
             controller.searchResultsUpdater = self
-            controller.dimsBackgroundDuringPresentation = false
+            //controller.dimsBackgroundDuringPresentation = false
             controller.searchBar.sizeToFit()
             controller.hidesNavigationBarDuringPresentation = false
             tableView.tableHeaderView = controller.searchBar
@@ -35,7 +33,6 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
             return controller
         })()
         
-        // Reload the table
         tableView.reloadData()
         
     }
