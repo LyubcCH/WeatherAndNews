@@ -1,10 +1,4 @@
-//
-//  Helpers and Extensions.swift
-//  TheNewsApp
-//
-//  Created by Lyub Chibukhchian on 10/12/19.
-//  Copyright © 2019 Lyub Chibukhchian. All rights reserved.
-//
+
 
 import Foundation
 import UIKit

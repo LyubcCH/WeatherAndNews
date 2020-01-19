@@ -1,10 +1,4 @@
-//
-//  WeatherViewController.swift
-//  TheNewsApp
-//
-//  Created by Lyub Chibukhchian on 7/25/19.
-//  Copyright © 2019 Lyub Chibukhchian. All rights reserved.
-//
+
 
 import UIKit
 
@@ -61,7 +55,6 @@ class WeatherViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.temperatureLabel.text = String(self.weather.temperature)
                     self.weatherImageView.image = UIImage(named: self.updateWeatherIcon(condition: self.weather.condition))
-                    
                 }
                 
             } catch {

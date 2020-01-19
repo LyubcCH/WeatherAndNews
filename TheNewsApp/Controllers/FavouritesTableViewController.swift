@@ -1,10 +1,3 @@
-//
-//  FavouritesTableViewController.swift
-//  TheNewsApp
-//
-//  Created by Lyub Chibukhchian on 8/2/19.
-//  Copyright © 2019 Lyub Chibukhchian. All rights reserved.
-//
 
 import UIKit
 import CoreData
@@ -18,7 +11,7 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchFata()
+        fetchData()
         self.definesPresentationContext = true
         self.extendedLayoutIncludesOpaqueBars = true
         
@@ -71,7 +64,7 @@ class FavouritesTableViewController: UITableViewController, UISearchResultsUpdat
     }
     
     
-    func fetchFata() {
+    func fetchData() {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
         do {
