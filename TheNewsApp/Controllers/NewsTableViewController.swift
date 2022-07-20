@@ -30,9 +30,9 @@ class NewsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsTableViewCell
         cell.newsTitleLabel.text = news_info.results[indexPath.row].title
         cell.datePublishedLabel.text = news_info.results[indexPath.row].published_date
-        if news_info.results[indexPath.row].media[0].mediaMetadata[0].url != "" {
+        /*if news_info.results[indexPath.row].media[0].mediaMetadata[0].url != "" {
               cell.newsImageView.loadImageUsingCache(urlString: news_info.results[indexPath.row].media[0].mediaMetadata[0].url)
-        }
+        }*/
         return cell
     }
     
